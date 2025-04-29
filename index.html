@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ደበላ ጉዬ ኪራይ መኪናዎች</title>
+<!-- Material Icons CDN for contact icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+  :root {
+    --primary-color: #0077b6;
+    --secondary-color: #023e8a;
+    --accent-color: #00b4d8;
+    --background-color: #f0f8ff;
+    --text-color: #03045e;
+    --border-radius: 10px;
+    --contact-bg: #fff;
+    --contact-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    --icon-size: 2.3rem;
+  }
+  * { box-sizing: border-box; }
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    height: 100%;
+  }
+  #main-content {
+    display: none;
+    max-width: 900px;
+    margin: 2rem auto 3rem;
+    padding: 0 1rem;
+  }
+  #language-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  #language-box {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    max-width: 320px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  #language-box h2 {
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+  #language-box p {
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+  .lang-btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.6rem 1.5rem;
+    margin: 0 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  .lang-btn:hover, .lang-btn:focus {
+    background-color: var(--secondary-color);
+    outline: none;
+  }
+  #photo-container {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--accent-color);
+    box-shadow: 0 0 25px var(--accent-color);
+    animation: pulseGlow 3s ease-in-out infinite;
+    background-image: url('./images/myphotoDe.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+  @keyframes pulseGlow {
+    0%, 100% {
+        box-shadow:
+            0 0 15px var(--accent-color),
+            0 0 30px var(--accent-color),
+            0 0 45px var(--accent-color);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow:
+            0 0 25px var(--accent-color),
+            0 0 50px var(--accent-color),
+            0 0 75px var(--accent-color);
+        transform: scale(1.05);
+    }
+  }
+  header {
+    background: var(--primary-color);
+    padding: 1.5rem 1rem;
+    color: white;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  header h1 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    flex-grow: 1;
+    text-align: center;
+  }
+  .lang-switcher {
+    position: absolute;
+    top: 1.2rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .lang-switcher select {
+    padding: 0.3rem 0.5rem;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #header-dev-info-btn {
+    display: none;
+  }
+  #quick-contact-btn {
+    display: none;
+  }
+  .intro {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .intro img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-color);
+    margin-bottom: 1rem;
+  }
+  .intro h2 {
+    margin: 0.5rem 0 0.3rem;
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+  .intro p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--secondary-color);
+  }
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .service-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .service-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+  .service-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+  }
+  .service-card h3 {
+    margin: 0.7rem 1rem 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  form {
+    background: white;
+    padding: 2rem 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+  form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+  }
+  label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  select,
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    margin-bottom: 1.3rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+  select:focus,
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  textarea:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+  }
+  button[type="submit"] {
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: 700;
+    padding: 0.8rem 1.6rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  button[type="submit"]:hover {
+    background-color: var(--primary-color);
+  }
+  #form-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  #quick-contact-btn-form,
+  #header-dev-info-btn-form {
+    background: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.7rem 1.8rem;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    flex: 1 1 200px;
+    max-width: 220px;
+  }
+  #quick-contact-btn-form:hover, #quick-contact-btn-form:focus,
+  #header-dev-info-btn-form:hover, #header-dev-info-btn-form:focus {
+    background-color: var(--secondary-color);
+    outline: none;
+  }
+  /* Thank you section */
+  #thankyou-page {
+    display: none;
+    max-width: 600px;
+    margin: 5vh auto 3rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+  }
+  #thankyou-page h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  #thankyou-page p {
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+  }
+  #reload-btn,
+  #show-developer-btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.7rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin: 0.3rem 0.4rem;
+  }
+  #reload-btn:hover, #reload-btn:focus,
+  #show-developer-btn:hover, #show-developer-btn:focus {
+    background: var(--secondary-color);
+  }
+  /* Contact Section Styles */
+  .contact-section {
+    background: var(--contact-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--contact-shadow);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .contact-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 0.9rem;
+  }
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #f6fbff;
+    border-radius: 8px;
+    padding: 0.78rem 1rem;
+    transition: background 0.2s;
+  }
+  .contact-item a {
+    color: var(--text-color);
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 1.09rem;
+    word-break: break-all;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .contact-item:hover {
+    background: #e3f6fb;
+  }
+  .contact-icon {
+    font-size: var(--icon-size);
+    color: var(--secondary-color);
+    background: #e3f6fb;
+    border-radius: 50%;
+    padding: 0.33rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    min-height: 38px;
+  }
+  .telegram-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #229ed9;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0.5rem 1.1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    gap: 0.5rem;
+    transition: background 0.2s;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+  }
+  .telegram-btn:hover, .telegram-btn:focus {
+    background: #137ab8;
+    color: #fff;
+  }
+  /* Developer Info Styles */
+  #developer-info {
+    display: none;
+    max-width: 700px;
+    margin: 3rem auto 4rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 30px rgba(0,0,0,0.15);
+    padding: 2rem 2rem 3rem;
+    color: var(--text-color);
+  }
+  #developer-info h2 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+  }
+  .dev-photo {
+    display: block;
+    margin: 0 auto 1.5rem;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--accent-color);
+    box-shadow: 0 0 20px var(--accent-color);
+  }
+  .dev-name {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--secondary-color);
+  }
+  .dev-contact {
+    display: flex;
+    justify-content: center;
+    gap: 1.3rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .dev-contact a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.1rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .dev-contact a .material-icons {
+    font-size: 1.4rem;
+  }
+  .dev-contact a:hover,
+  .dev-contact a:focus {
+    background-color: var(--accent-color);
+    color: white;
+    outline: none;
+  }
+  .dev-education {
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  .edu-item {
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .edu-icon {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .edu-text {
+    flex: 1;
+  }
+  #back-to-thankyou {
+    display: block;
+    margin: 2rem auto 0;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    max-width: 250px;
+    transition: background-color 0.3s ease;
+  }
+  #back-to-thankyou:hover, #back-to-thankyou:focus {
+    background-color: var(--primary-color);
+    outline: none;
+  }
+  @media (max-width: 480px) {
+    header h1 { font-size: 1.6rem; }
+    .intro h2 { font-size: 1.4rem; }
+    .services { grid-template-columns: 1fr 1fr; }
+    #thankyou-page { padding: 1.5rem 0.7rem; }
+    .contact-section { padding: 1.2rem 0.5rem; }
+    .contact-title { font-size: 1.19rem; }
+    .contact-icon { font-size: 2rem; min-width: 32px; min-height: 32px; }
+    .contact-item { padding: 0.6rem 0.65rem; }
+    #developer-info {
+      padding: 1.5rem 1rem 2rem;
+      margin: 2rem 1rem 3rem;
+    }
+    .dev-contact a {
+      font-size: 1rem;
+      padding: 0.4rem 0.8rem;
+    }
+    #form-buttons {
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    #quick-contact-btn-form,
+    #header-dev-info-btn-form {
+      max-width: 100%;
+      flex: none;
+    }
+  }
+  /* --- NEW: Styles for Quick Contact Us Page --- */
+  #quick-contact-page {
+    display: none;
+    max-width: 900px;
+    margin: 2rem auto 3rem;
+    padding: 0 1rem;
+    background: var(--background-color);
+  }
+  #quick-contact-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+  }
+  #quick-contact-header h2 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+  #back-to-main-btn {
+    background: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.4rem 1rem;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  #back-to-main-btn:hover, #back-to-main-btn:focus {
+    background-color: var(--secondary-color);
+    outline: none;
+  }
+  #quick-contact-content {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  #quick-contact-content .contact-section {
+    max-width: 400px;
+    margin: 0;
+  }
+  @media (max-width: 600px) {
+    #quick-contact-content {
+      justify-content: center;
+    }
+    #quick-contact-content .contact-section {
+      max-width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Language selection overlay with animated photo -->
+<div id="language-overlay" role="dialog" aria-modal="true" aria-labelledby="lang-select-title" aria-describedby="lang-select-desc">
+  <div id="photo-container" aria-hidden="true"></div>
+  <div id="language-box">
+    <h2 id="lang-select-title">Welcome to Debela Rental Service</h2>
+    <p id="lang-select-desc">Which language do you prefer to fill the form?</p>
+    <button class="lang-btn" data-lang="am" aria-label="Select Amharic language">አማርኛ</button>
+    <button class="lang-btn" data-lang="en" aria-label="Select English language">English</button>
+    <button class="lang-btn" data-lang="om" aria-label="Select Afaan Oromoo language">Afaan Oromoo</button>
+  </div>
+</div>
+
+<!-- Main content hidden until language chosen -->
+<div id="main-content">
+  <header>
+    <h1 id="header-title">ደበላ ጉዬ የኪራይ ማሽኔሪዎች</h1>
+    <div class="lang-switcher" aria-label="Select language">
+      <select id="language-select" aria-label="Select Language">
+        <option value="en">English</option>
+        <option value="am" selected>አማርኛ</option>
+        <option value="om">Afaan Oromoo</option>
+      </select>
+      <button id="header-dev-info-btn" type="button" aria-label="Show Developer Information" style="display:none;">Developer Information</button>
+    </div>
+  </header>
+  <main>
+    <section class="intro">
+      <img src="images\myphotoDe.jpg" alt="Debela Guye" />
+      <h2 id="welcome-title">እንኳን ወደ ደበላ ጉዬ የኪራይ አገልግሎት በደህና መጡ</h2>
+      <p id="welcome-desc">ለከባድ ማሽነሪ ኪራይ: ሎደር፣ ሲኖትራክ፣ ዶዘር፣ እና ኤክስካቬተር እርስዎ የሚታመኑብት አገልግሎት።</p>
+    </section>
+    <section class="services" aria-label="Rental Machines">
+      <article class="service-card">
+        <img src="sinotruck photo\sino.png" alt="Sinotruck" />
+        <h3 id="service-sinotruck">ሲኖትራክ</h3>
+      </article>
+      <article class="service-card">
+        <img src="Loader photo\Loader.png"alt="Loader" />
+        <h3 id="service-loader">ሎደር</h3>
+      </article>
+      <article class="service-card">
+        <img src="Dozer photo\Doze.png" alt="Dozer" />
+        <h3 id="service-dozer">ዶዘር</h3>
+      </article>
+      <article class="service-card">
+        <img src="Excavator Photo\Excavate.png" alt="Excavator" />
+        <h3 id="service-excavator">ኤክስካቬተር</h3>
+      </article>
+    </section>
+    <section>
+      <form 
+        id="rental-form" 
+        aria-label="Machine Rental Form" 
+        method="POST"
+        action="https://getform.io/f/akkyqlqa"
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" name="_redirect" value="https://life181.github.io/Debela-Guye-Mashinery-Rental-Service/?thankyou=1" />
+        
+        <h2 id="form-title">ማሽኔሪ ኪራይ ይውሰዱ</h2>
+        <label for="machine-select" id="label-machine-select">ምን ዓይነት ማሽኔሪ ትፈልጋላችሁ?</label>
+        <select id="machine-select" name="machine-select" required>
+          <option value="" disabled selected>ማሽነሪ ይምረጡ</option>
+          <option value="sinotruck">ሲኖትራክ</option>
+          <option value="loader">ሎደር</option>
+          <option value="dozer">ዶዘር</option>
+          <option value="excavator">ኤክስካቬተር</option>
+        </select>
+        <label for="project-name" id="label-project-name">የፕሮጀክት ስም</label>
+        <input type="text" id="project-name" name="project-name" placeholder="የፕሮጀክትዎን ስም ያስገቡ" required />
+        <label for="project-place" id="label-project-place">የፕሮጀክት ቦታ</label>
+        <input type="text" id="project-place" name="project-place" placeholder="የፕሮጀክት ቦታ ያስገቡ" required />
+        <label for="amount" id="label-amount">የክፍያ መጠን (በኢትዮጵያ ብር / ወር ወይም ሰዓት)</label>
+        <input type="number" id="amount" name="amount" min="0" step="any" placeholder="ወርሃዊ ኪራይ መጠን ወይም በሰዓት ክፍያ" required />
+        <label for="duration" id="label-duration">ለምን ጊዜ ትፈልጋላችሁ?</label>
+        <input type="number" id="duration" name="duration" min="1" step="1" placeholder="የክራይ ጊዜ ብዛት ያስገቡ" required />
+        <label for="renter-name" id="label-renter-name">የኪራይ ተወዳዳሪ ስም</label>
+        <input type="text" id="renter-name" name="renter-name" placeholder="ሙሉ ስምዎ" required />
+        <label for="email-phone" id="label-email-phone">ኢሜይል ወይም ስልክ ቁጥር</label>
+        <input type="text" id="email-phone" name="email-phone" placeholder="ኢሜይል ወይም ስልክ ቁጥርዎ" required />
+        <label for="address" id="label-address">አድራሻ</label>
+        <input type="text" id="address" name="address" placeholder="አድራሻዎ" required />
+        <label for="other-ideas" id="label-other-ideas">ሌሎች አስተያየቶች / ሃሳቦች</label>
+        <textarea id="other-ideas" name="other-ideas" rows="4" placeholder="ተጨማሪ መረጃ ወይም ሃሳቦች"></textarea>
+        <button type="submit" id="submit-btn">ጥያቄ ያቅርቡ</button>
+        <div id="form-buttons">
+          <button type="button" id="quick-contact-btn-form" aria-label="Go to Quick Contact Us page">Quick Contact Us</button>
+          <button type="button" id="header-dev-info-btn-form" aria-label="Show Developer Information">Developer Information</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+
+<!-- Quick Contact Us Page -->
+<div id="quick-contact-page" role="region" aria-label="Quick Contact Us Page" tabindex="-1">
+  <header id="quick-contact-header">
+    <button id="back-to-main-btn" aria-label="Back to main page">← Back</button>
+    <h2>Quick Contact Us</h2>
+  </header>
+  <div id="quick-contact-content">
+    <section class="contact-section" id="contact">
+      <div class="contact-title">Quick Contact us</div>
+      <ul class="contact-list">
+        <li class="contact-item">
+          <span class="contact-icon material-icons" aria-hidden="true" style="color:#229ed9;">send</span>
+          <a href="https://t.me/templeofjesus" class="telegram-btn" target="_blank" rel="noopener noreferrer" aria-label="Contact on Telegram">
+            <span class="material-icons" style="font-size:1.3rem;">send</span>
+            @templeofjesus
+          </a>
+        </li>
+        <li class="contact-item">
+          <span class="contact-icon material-icons" aria-hidden="true" style="color:#34af23;">call</span>
+          <a href="tel:+251911005329" aria-label="Call phone number +251911005329">+251911005329</a>
+        </li>
+        <li class="contact-item">
+          <span class="contact-icon material-icons" aria-hidden="true" style="color:#4267B2;">facebook</span>
+          <a href="https://www.facebook.com/profile.php?id=100095081658115" target="_blank" rel="noopener noreferrer" aria-label="Facebook page">Facebook</a>
+        </li>
+        <li class="contact-item">
+          <span class="contact-icon material-icons" aria-hidden="true" style="color:#f44336;">location_on</span>
+          <a href="https://maps.google.com/?q=Adola+Woyu+Town" target="_blank" rel="noopener noreferrer" aria-label="View on Google Maps">Adola Woyu Town</a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<!-- Thank you page/section -->
+<div id="thankyou-page" tabindex="-1" aria-live="polite">
+  <h2 id="thankyou-title">Thank you!</h2>
+  <p id="thankyou-message">
+    Thank you! Your request has been submitted.<br>
+    If you want to submit another request, you can reload the page.<br>
+    We will come back to you soon.
+  </p>
+  <button id="reload-btn" type="button">Click here to submit other form</button>
+  <button id="show-developer-btn" type="button" aria-label="Show Developer Information">Developer Information</button>
+</div>
+
+<!-- Developer Information Page -->
+<div id="developer-info" tabindex="-1" aria-live="polite" aria-label="Developer Information">
+  <h2>Developer Information</h2>
+  <img src="my photoudo\udo one.JPG" alt="Udo Guye Photo" class="dev-photo" />
+  <div class="dev-name">Udo Guye</div>
+
+  <div class="dev-contact" role="list" aria-label="Developer Contact Information">
+    <a href="tel:+251918990005" aria-label="Call phone number +251918990005" role="listitem">
+      <span class="material-icons" aria-hidden="true">call</span> +251918990005
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=100008594551905" target="_blank" rel="noopener noreferrer" aria-label="Facebook profile" role="listitem">
+      <span class="material-icons" aria-hidden="true">facebook</span> Facebook
+    </a>
+    <a href="https://t.me/templeofjesus2" target="_blank" rel="noopener noreferrer" aria-label="Telegram profile" role="listitem">
+      <span class="material-icons" aria-hidden="true">send</span> Telegram
+    </a>
+  </div>
+
+  <div class="dev-education" aria-label="Developer Education">
+    <div class="edu-item">
+      <span class="material-icons edu-icon" aria-hidden="true">school</span>
+      <div class="edu-text"><strong>Addis Ababa University</strong><br>Graduated from School of Civil and Environmental Engineering</div>
+    </div>
+    <div class="edu-item">
+      <span class="material-icons edu-icon" aria-hidden="true">computer</span>
+      <div class="edu-text">
+        <strong>Udacity Nanodegrees</strong><br>
+        Fundamentals of Programming, Fundamentals of Android Development, Fundamentals of Data Analysis, and Artificial Intelligence Fundamentals
+      </div>
+    </div>
+  </div>
+
+  <button id="back-to-thankyou" type="button" aria-label="Back to Main Page">Back to Main Page</button>
+</div>
+
+<script>
+  // Multilingual translations with thank you messages
+  const translations = {
+    en: {
+      htmlLang: "en",
+      headerTitle: "Debela Guye Rental Machines",
+      welcomeTitle: "Welcome to Debela Guye Rental Service",
+      welcomeDesc: "Your trusted partner for heavy machinery rentals: loader, sinotruck, dozer, and excavator.",
+      serviceSinotruck: "Sinotruck",
+      serviceLoader: "Loader",
+      serviceDozer: "Dozer",
+      serviceExcavator: "Excavator",
+      formTitle: "Rent a Machine",
+      labelMachineSelect: "Which machine do you want to rent?",
+      machines: [
+        {value: "sinotruck", text: "Sinotruck"},
+        {value: "loader", text: "Loader"},
+        {value: "dozer", text: "Dozer"},
+        {value: "excavator", text: "Excavator"}
+      ],
+      labelProjectName: "Name of the Project",
+      labelProjectPlace: "Place of the Project",
+      labelAmount: "Amount of Money (in ETB / month or per hour)",
+      labelDuration: "For how many months do you want to rent?",
+      labelDurationAlt: "For how many hours do you want to rent?",
+      labelRenterName: "Name of the Renter",
+      labelEmailPhone: "Email or Phone Number",
+      labelAddress: "Address",
+      labelOtherIdeas: "Other Ideas / Notes",
+      submitBtn: "Submit Request",
+      thankyouTitle: "Thank you!",
+      thankyouMessage: "Thank you, {name}! Your request has been submitted.<br>If you want to submit another request, you can click the following button.<br>We will come back to you soon.",
+      placeholders: {
+        machineSelect: "Select a machine",
+        projectName: "Enter your project name",
+        projectPlace: "Enter the project location",
+        amount: "Monthly or hourly rental amount",
+        duration: "Enter rental duration",
+        renterName: "Your full name",
+        emailPhone: "Your email or phone number",
+        address: "Your address",
+        otherIdeas: "Any additional information or ideas"
+      }
+    },
+    am: {
+      htmlLang: "am",
+      headerTitle: "ደበላ ጉዬ ኪራይ ማሽነሪዎች",
+      welcomeTitle: " እንኳን ወደ ደበላ ጉዬ ኪራይ አገልግሎት በደህና መጡ",
+      welcomeDesc: "ለከባድ ማሽነሪ ኪራይ: ሎደር፣ ሲኖትራክ፣ ዶዘር፣ እና ኤክስካቬተር እርስዎ የሚታመኑበት አገልግሎት።",
+      serviceSinotruck: "ሲኖትራክ",
+      serviceLoader: "ሎደር",
+      serviceDozer: "ዶዘር",
+      serviceExcavator: "ኤክስካቬተር",
+      formTitle: "ማሽነሪ ኪራይ ይውሰዱ",
+      labelMachineSelect: "ምን ዓይነት ማሽኔሪ ትፈልጋላችሁ?",
+      machines: [
+        {value: "sinotruck", text: "ሲኖትራክ"},
+        {value: "loader", text: "ሎደር"},
+        {value: "dozer", text: "ዶዘር"},
+        {value: "excavator", text: "ኤክስካቬተር"}
+      ],
+      labelProjectName: "የፕሮጀክት ስም",
+      labelProjectPlace: "የፕሮጀክት ቦታ",
+      labelAmount: "የክፍያ መጠን (በኢትዮጵያ ብር / ወር ወይም ሰዓት)",
+      labelDuration: "ለምን ያህል ወራት ትፈልጋላችሁ?",
+      labelDurationAlt: "ለምን ያህል ሰዓታት ትፈልጋላችሁ?",
+      labelRenterName: "የኪራይ ተወዳዳሪ ስም",
+      labelEmailPhone: "ኢሜይል ወይም ስልክ ቁጥር",
+      labelAddress: "አድራሻ",
+      labelOtherIdeas: "ሌሎች አስተያየቶች / ሃሳቦች",
+      submitBtn: "ጥያቄ ያቅርቡ",
+      thankyouTitle: "አመሰግናለሁ!",
+      thankyouMessage: "አመሰግናለሁ, {name}! ጥያቄዎ ተሰጥቷል።<br>ሌላ ጥያቄ ለማቅረብ ገፁን ዳግም ያንቁ።<br>በቅርቡ እንመለሳለን።",
+      placeholders: {
+        machineSelect: "ማሽነሪ ይምረጡ",
+        projectName: "የፕሮጀክትዎን ስም ያስገቡ",
+        projectPlace: "የፕሮጀክት ቦታ ያስገቡ",
+        amount: "ወርሃዊ ኪራይ መጠን ወይም በሰዓት ክፍያ",
+        duration: "የክራይ ጊዜ ብዛት ያስገቡ",
+        renterName: "ሙሉ ስምዎ",
+        emailPhone: "ኢሜይል ወይም ስልክ ቁጥርዎ",
+        address: "አድራሻዎ",
+        otherIdeas: "ተጨማሪ መረጃ ወይም ሃሳቦች"
+      }
+    },
+    om: {
+      htmlLang: "om",
+      headerTitle: "Dabalaa Guyyee Tajaajila Maashinineerii Kireessuu",
+      welcomeTitle: "Baga Gara Tajaajila Maashineerii kireessuu Dabalaaa Guyyeetti Nagaan Dhuftan",
+      welcomeDesc: "Tajaajila Kireessuuu Maashineerii amanamaa fi cimaa Keessan: loader, sinotruck, dozer, fi excavator.",
+      serviceSinotruck: "Sinotruck",
+      serviceLoader: "Loader",
+      serviceDozer: "Dozer",
+      serviceExcavator: "Excavator",
+      formTitle: "Maashinerii kifeeffamu",
+      labelMachineSelect: "Maashineerii kamtu isin barbaachisaa?",
+      machines: [
+        {value: "sinotruck", text: "Sinotruck"},
+        {value: "loader", text: "Loader"},
+        {value: "dozer", text: "Dozer"},
+        {value: "excavator", text: "Excavator"}
+      ],
+      labelProjectName: "Maqaa Proojektii",
+      labelProjectPlace: "Iddoo Proojektii",
+      labelAmount: "Gatii (ETB / ji’a yookan sa’aatii)",
+      labelDuration: "Ji’oota meeqaaf kireeffachuu barbaaddaa?",
+      labelDurationAlt: "Sa’aatii meeqaaf kireeffachuu barbaaddaa?",
+      labelRenterName: "Maqaa Nama Kireeffatuu",
+      labelEmailPhone: "Imeelii yookin Lakkoofsa Bilbilaa",
+      labelAddress: "Teessoo",
+      labelOtherIdeas: "Yaada Biroo / Odeeffannoo",
+      submitBtn: "Gaaffii Ergaa",
+      thankyouTitle: "Galatoomi!",
+      thankyouMessage: "Galatoomi, {name}! Gaaffiin kee ergameera.<br>Yoo kan biraa galchuu barbaadde, 'button' armaan gadii tuqi.<br>Si arguuf yeroo gabaabaa keessatti si deebi’uun keenya waan hin oolleedha. hanga sanitti obsaan nuu eeggadhaa",
+      placeholders: {
+        machineSelect: "Maashineriii filadhu",
+        projectName: "Maqaa proojektii galchaa",
+        projectPlace: "Iddoo proojektii galchaa",
+        amount: "Gatii kiraayaa ji’a yookan sa’aatii",
+        duration: "Lakkoofsa yeroo kiraa galchaa",
+        renterName: "Maqaa guutuu keessan",
+        emailPhone: "Imeelii ykn lakkoofsa bilbilaa keessan",
+        address: "Teessoo keessan",
+        otherIdeas: "Odeeffannoo dabalataa ykn yaada addaa yoo qabaattan"
+      }
+    }
+  };
+
+  const elements = {
+    html: document.documentElement,
+    languageOverlay: document.getElementById('language-overlay'),
+    mainContent: document.getElementById('main-content'),
+    headerTitle: document.getElementById('header-title'),
+    welcomeTitle: document.getElementById('welcome-title'),
+    welcomeDesc: document.getElementById('welcome-desc'),
+    serviceSinotruck: document.getElementById('service-sinotruck'),
+    serviceLoader: document.getElementById('service-loader'),
+    serviceDozer: document.getElementById('service-dozer'),
+    serviceExcavator: document.getElementById('service-excavator'),
+    formTitle: document.getElementById('form-title'),
+    labelMachineSelect: document.getElementById('label-machine-select'),
+    labelProjectName: document.getElementById('label-project-name'),
+    labelProjectPlace: document.getElementById('label-project-place'),
+    labelAmount: document.getElementById('label-amount'),
+    labelDuration: document.getElementById('label-duration'),
+    durationInput: document.getElementById('duration'),
+    labelRenterName: document.getElementById('label-renter-name'),
+    labelEmailPhone: document.getElementById('label-email-phone'),
+    labelAddress: document.getElementById('label-address'),
+    labelOtherIdeas: document.getElementById('label-other-ideas'),
+    submitBtn: document.getElementById('submit-btn'),
+    languageSelect: document.getElementById('language-select'),
+    machineSelect: document.getElementById('machine-select'),
+    projectNameInput: document.getElementById('project-name'),
+    projectPlaceInput: document.getElementById('project-place'),
+    amountInput: document.getElementById('amount'),
+    renterNameInput: document.getElementById('renter-name'),
+    emailPhoneInput: document.getElementById('email-phone'),
+    addressInput: document.getElementById('address'),
+    otherIdeasInput: document.getElementById('other-ideas'),
+    thankyouPage: document.getElementById('thankyou-page'),
+    thankyouTitle: document.getElementById('thankyou-title'),
+    thankyouMessage: document.getElementById('thankyou-message'),
+    reloadBtn: document.getElementById('reload-btn'),
+    showDeveloperBtn: document.getElementById('show-developer-btn'),
+    developerInfo: document.getElementById('developer-info'),
+    backToThankyouBtn: document.getElementById('back-to-thankyou'),
+    quickContactBtnForm: document.getElementById('quick-contact-btn-form'),
+    headerDevInfoBtnForm: document.getElementById('header-dev-info-btn-form'),
+    quickContactPage: document.getElementById('quick-contact-page'),
+    backToMainBtn: document.getElementById('back-to-main-btn'),
+  };
+
+  // Fill machine select options based on language
+  function fillMachineOptions(lang) {
+    const machineSelect = elements.machineSelect;
+    machineSelect.innerHTML = '';
+
+    const placeholderOption = document.createElement('option');
+    placeholderOption.value = '';
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    placeholderOption.textContent = translations[lang].placeholders.machineSelect;
+    machineSelect.appendChild(placeholderOption);
+
+    translations[lang].machines.forEach(machine => {
+      const option = document.createElement('option');
+      option.value = machine.value;
+      option.textContent = machine.text;
+      machineSelect.appendChild(option);
+    });
+  }
+
+  function setLanguage(lang) {
+    const t = translations[lang];
+    elements.html.lang = t.htmlLang || lang;
+    elements.headerTitle.textContent = t.headerTitle;
+    elements.welcomeTitle.textContent = t.welcomeTitle;
+    elements.welcomeDesc.textContent = t.welcomeDesc;
+    elements.serviceSinotruck.textContent = t.serviceSinotruck;
+    elements.serviceLoader.textContent = t.serviceLoader;
+    elements.serviceDozer.textContent = t.serviceDozer;
+    elements.serviceExcavator.textContent = t.serviceExcavator;
+    elements.formTitle.textContent = t.formTitle;
+    elements.labelMachineSelect.textContent = t.labelMachineSelect;
+    elements.labelProjectName.textContent = t.labelProjectName;
+    elements.labelProjectPlace.textContent = t.labelProjectPlace;
+    elements.labelAmount.textContent = t.labelAmount;
+    elements.labelRenterName.textContent = t.labelRenterName;
+    elements.labelEmailPhone.textContent = t.labelEmailPhone;
+    elements.labelAddress.textContent = t.labelAddress;
+    elements.labelOtherIdeas.textContent = t.labelOtherIdeas;
+    elements.submitBtn.textContent = t.submitBtn;
+
+    elements.languageSelect.value = lang;
+    elements.languageSelect.querySelector(`option[value="${lang}"]`).selected = true;
+
+    elements.projectNameInput.placeholder = t.placeholders.projectName;
+    elements.projectPlaceInput.placeholder = t.placeholders.projectPlace;
+    elements.amountInput.placeholder = t.placeholders.amount;
+    elements.durationInput.placeholder = t.placeholders.duration || t.placeholders.durationAlt;
+    elements.renterNameInput.placeholder = t.placeholders.renterName;
+    elements.emailPhoneInput.placeholder = t.placeholders.emailPhone;
+    elements.addressInput.placeholder = t.placeholders.address;
+    elements.otherIdeasInput.placeholder = t.placeholders.otherIdeas;
+
+    fillMachineOptions(lang);
+    updateAmountLabelPlaceholder(lang, elements.machineSelect.value);
+    updateDurationLabelPlaceholder(lang, elements.machineSelect.value);
+
+    // Thank you page translation
+    elements.thankyouTitle.textContent = t.thankyouTitle;
+  }
+
+  function updateAmountLabelPlaceholder(lang, machine) {
+    const isSinotruck = machine === 'sinotruck';
+    if (isSinotruck) {
+      elements.labelAmount.textContent = lang === 'am' ?
+        "የክፍያ መጠን (በኢትዮጵያ ብር / ወር)" :
+        lang === 'om' ?
+        "Gatii (ETB / ji’a)" :
+        "Amount of Money (in ETB / month)";
+      elements.amountInput.placeholder = lang === 'am' ?
+        "ወርሃዊ ኪራይ መጠን" :
+        lang === 'om' ?
+        "Gatii kiraayaa ji’a" :
+        "Monthly rental amount";
+    } else if (!machine) {
+      const t = translations[lang];
+      elements.labelAmount.textContent = t.labelAmount;
+      elements.amountInput.placeholder = t.placeholders.amount;
+    } else {
+      elements.labelAmount.textContent = lang === 'am' ?
+        "የክፍያ መጠን (በኢትዮጵያ ብር / ሰዓት)" :
+        lang === 'om' ?
+        "Gatii (ETB / sa’aatii)" :
+        "Amount of Money (in ETB / hour)";
+      elements.amountInput.placeholder = lang === 'am' ?
+        "በሰዓት ክፍያ" :
+        lang === 'om' ?
+        "Gatii kiraayaa sa’aatii" :
+        "Hourly rental amount";
+    }
+  }
+
+  function updateDurationLabelPlaceholder(lang, machine) {
+    const isSinotruck = machine === 'sinotruck';
+    const t = translations[lang];
+    if (isSinotruck) {
+      elements.labelDuration.textContent = t.labelDuration;
+      elements.durationInput.placeholder = t.placeholders.duration;
+    } else if (!machine) {
+      elements.labelDuration.textContent = t.labelDurationAlt; 
+      elements.durationInput.placeholder = t.placeholders.durationAlt || t.placeholders.duration;
+    } else {
+      elements.labelDuration.textContent = t.labelDurationAlt;
+      elements.durationInput.placeholder = t.placeholders.durationAlt || t.placeholders.duration;
+    }
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const selectedLang = e.target.getAttribute('data-lang');
+      setLanguage(selectedLang);
+      elements.languageOverlay.style.display = 'none';
+      elements.mainContent.style.display = 'block';
+    });
+  });
+
+  elements.languageSelect.addEventListener('change', e => {
+    const lang = e.target.value;
+    setLanguage(lang);
+  });
+
+  elements.machineSelect.addEventListener('change', e => {
+    const lang = elements.languageSelect.value;
+    const machine = e.target.value;
+    updateAmountLabelPlaceholder(lang, machine);
+    updateDurationLabelPlaceholder(lang, machine);
+  });
+
+  // Removed JS form submit handler so native Getform submission works
+
+  elements.reloadBtn.addEventListener('click', () => {
+    window.location.href = window.location.pathname; // Don't reload with ?thankyou=1
+  });
+
+  elements.showDeveloperBtn.addEventListener('click', () => {
+    elements.thankyouPage.style.display = 'none';
+    elements.developerInfo.style.display = 'block';
+    elements.developerInfo.focus();
+  });
+
+  elements.headerDevInfoBtnForm.addEventListener('click', () => {
+    elements.languageOverlay.style.display = 'none';
+    elements.mainContent.style.display = 'none';
+    elements.thankyouPage.style.display = 'none';
+    elements.quickContactPage.style.display = 'none';
+    elements.developerInfo.style.display = 'block';
+    elements.developerInfo.focus();
+  });
+
+  elements.backToThankyouBtn.addEventListener('click', () => {
+    elements.developerInfo.style.display = 'none';
+    elements.mainContent.style.display = 'block';
+    elements.mainContent.querySelector('main').focus();
+  });
+
+  elements.quickContactBtnForm.addEventListener('click', () => {
+    elements.languageOverlay.style.display = 'none';
+    elements.mainContent.style.display = 'none';
+    elements.thankyouPage.style.display = 'none';
+    elements.developerInfo.style.display = 'none';
+    elements.quickContactPage.style.display = 'block';
+    elements.quickContactPage.focus();
+  });
+
+  elements.backToMainBtn.addEventListener('click', () => {
+    elements.quickContactPage.style.display = 'none';
+    elements.mainContent.style.display = 'block';
+    elements.mainContent.querySelector('main').focus();
+  });
+
+  // Initial display states
+  elements.languageOverlay.style.display = 'flex';
+  elements.mainContent.style.display = 'none';
+  elements.thankyouPage.style.display = 'none';
+  elements.developerInfo.style.display = 'none';
+  elements.quickContactPage.style.display = 'none';
+
+  // --- Redirect detection for thank you page ---
+  function checkThankYouPage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('thankyou') === '1') {
+      elements.languageOverlay.style.display = 'none';
+      elements.mainContent.style.display = 'none';
+      elements.quickContactPage.style.display = 'none';
+      elements.developerInfo.style.display = 'none';
+      elements.thankyouPage.style.display = 'block';
+      elements.thankyouPage.focus();
+      // Remove ?thankyou=1 from the address bar after shown (optional):
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setLanguage(elements.languageSelect.value);
+    checkThankYouPage();
+  });
+</script>
+
+</body>
+</html>
